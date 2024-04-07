@@ -15,9 +15,15 @@ const clearCompletedBtn = document.getElementById("clearCompletedBtn");
 // Declaring an empty array with the variable named tasks
 let tasks = [];
 
-
+// This function assigns the value of the taskInput html element entered by
+// the user, to the variable taskText and trimming any trailing whitespace
 function addTask() {
     const taskText = taskInput.value.trim();
+    // This if block checks first that the content is not an empty string
+    // to create a new task object if it is not empty.
+    // Then it pushes the value to the array, representing the ToDo list
+    // then it clears the input for the next task entry
+    // and finally it displays the entered ToDo tasks
     if (taskText !== "") {
         tasks.push({ text: taskText});
         taskInput.value = "";

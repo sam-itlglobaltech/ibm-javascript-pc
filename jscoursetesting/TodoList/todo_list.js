@@ -31,29 +31,49 @@ function addTask() {
     }
 }
 
+
 function displayTasks() {
+    // clear the existing content within the task list element by setting its
+    // innerHTML to an empty string
     taskList.innerHTML = "";
+    // creates a list item li for each task
     tasks.forEach((task, index) => {
         const li = document.createElement("li");
+        // it constructs HTML content for each task by assigning it to 
+        // li.innerHTML which includes a checkbox, a label displaying the 
+        // task text and corresponding IDs
         li.innerHTML = `<input type="checkbox" id="task-${index}" ${task.completed ? "checked" : ""}>
             <label for="task-${index}">${task.text}</label>`;
-        li.querySelector("input").addEventListener("change", () => toggleTask(index));
-        taskList.appendChild(li);
+        // it sets up an event listener for each checkbox within the task list
+        // <li> element. When the checkbox state changes, it triggers the 
+        // toggleTask() function.
+            li.querySelector("input").addEventListener("change", () => toggleTask(index));
+        // This appends the newly created list item containing the task details in
+        // the To-Do List interface
+            taskList.appendChild(li);
     });
 }
 
+// This function toggles the completion status of a specific task in the tasks array
+// based on the provided index. If the task is selected, then it will mark that
+// particular task as completed and call the clear completed tasks
 function toggleTask(index) {
     tasks[index].completed = !tasks[index].completed;
     displayTasks();
 }
 
+// This filter the task array, to retrieve the tasks that are not marked as completed
 function clearCompletedTasks() {
     tasks = tasks.filter(task => !task.completed);
     displayTasks();
 }
 
+// These event listeners listen for clicks after clicking the Add Task and Clear Completed
+// buttons
 addTaskBtn.addEventListener("click", addTask);
 clearCompletedBtn.addEventListener("click", clearCompletedTasks);
 
+// Calls the displayTasks function to display the entered task after clicking the 
+// Add Task button
 displayTasks();
 

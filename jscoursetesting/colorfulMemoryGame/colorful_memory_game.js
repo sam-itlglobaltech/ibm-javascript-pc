@@ -85,13 +85,22 @@ function handleCardClick(event) {
     // 'dataset.color'. This action reveals the card's color by changing the text
     // content to the color value.
     card.textContent = card.dataset.color;
+    // Changes the card's background color to match the revealed color
     card.style.backgroundColor = card.dataset.color;
+    // Adds the clicked card to the 'selectedCards' array, indicating that it's one
+    // of the cards currently chosen by the player
     selectedCards.push(card);
+    // Checks if two cards have been selected. If two cards have been chosen,
+    // it uses 'setTimeout()' to delay the execution of the 'checkMatch()' function
+    // by 500 milliseconds. This brief delay allows the player to see both selected cards
+    // before their comparison briefly.
     if (selectedCards.length === 2) {
         setTimeout(checkMatch, 500);
     }
 }
 
+// evaluates whether the two selected cards match each other in the memory match game.
+// Include given code after handleCardClick() function.
 function checkMatch() {
     const [card1, card2] = selectedCards;
     if (card1.dataset.color === card2.dataset.color) {

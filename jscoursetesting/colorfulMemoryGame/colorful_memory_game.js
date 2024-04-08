@@ -102,49 +102,98 @@ function handleCardClick(event) {
 // evaluates whether the two selected cards match each other in the memory match game.
 // Include given code after handleCardClick() function.
 function checkMatch() {
+    // This line uses array destructuring to assign the first two elements of
+    // the 'selectedCards' array to 'card1' and 'card2'. These variables represent
+    // the two cards selected by the player for comparison
     const [card1, card2] = selectedCards;
+    // This checks if the color value stored in the 'dataset.color' attribute of
+    // 'card1' matches the color value of 'card2'.
     if (card1.dataset.color === card2.dataset.color) {
+        // It adds the class 'matched' to both cards
         card1.classList.add('matched');
         card2.classList.add('matched');
+        // Increases the 'score' by 2 points, as the player successfully matched a pair
         score += 2;
+        // Updates the palyer score
         scoreElement.textContent = `Score: ${score}`;
     } else {
+        // If the colors of the two selected cards don't match, it resets the text
+        // content of both cards to a question mark ('?'), hiding their colors again.
         card1.textContent = '?';
         card2.textContent = '?';
+        // Sets the background color of both cards to a default color ('#ddd'),
+        // providing a visual cue that the selected cards didn't match
         card1.style.backgroundColor = '#ddd';
         card2.style.backgroundColor = '#ddd';
     }
+    // Resetting selection
     selectedCards = [];
 }
 
+// Initializing and starting the memory match game
 function startGame() {
+    // Setting initial game state:
     let timeLeft = 30;
+    // Disables the 'startbtn' button to prevent multiple game initiations
+    // simultaneously
     startbtn.disabled = true;
     score = 0; // Reset score to zero
+    // Updates the displayed score
     scoreElement.textContent = `Score: ${score}`;
+    // Initiates the game timer
     startGameTimer(timeLeft);
+    // Shuffles the 'colors' array and duplicates it to create pairs for the game cards
     cards = shuffle(colors.concat(colors));
+    // Clears the 'selectedCards' array
     selectedCards = [];
+    // Clears the game container, removing any existing cards from previous games
     gameContainer.innerHTML = '';
+    // Generates a new set of cards, creating a fresh game layout for the player
     generateCards();
+    // Adds an event listener to the game container, enabling card clicks and
+    // triggering the 'handleCardClick()' function to manage the gameplay when
+    // cards are clicked
     gameContainer.addEventListener('click', handleCardClick);
 }
 
+// manages the game timer, updating the displayed time and handling
+// the end of the game when the timer reaches zero
 function startGameTimer(timeLeft) {
+    // Sets the initial display of the timer to show the 'timeLeft' value,
+    // indicating the starting time remaining for the game.
     timerElement.textContent = `Time Left: ${timeLeft}`;
+    // Initiates an interval that triggers a function every second (1000 milliseconds)
+    // to update the timer.
     gameInterval = setInterval(() => {
+        // Decrements the 'timeLeft' variable every second within the interval,
+        // simulating the countdown by reducing the remaining time.
         timeLeft--;
+        // Updates the displayed time on the HTML element ('timerElement')
+        // to reflect the updated 'timeLeft' value after each decrement.
         timerElement.textContent = `Time Left: ${timeLeft}`;
 
+        // End of game
+        // checks if the remaining time reaches zero
         if (timeLeft === 0) {
+            // Stops the interval, effectively ending the timer from counting down further
             clearInterval(gameInterval);
+            // This line is redundant as it re-declares 'timeLeft' within the scope
+            // of this block, resetting it to 30, but it does not affect the
+            // 'timeLeft' used in the interval.
             let timeLeft = 30;
+            // Displays an alert indicating that the game is over because
+            // the time limit has been reached
             alert('Game Over!');
+            // Re-enables the 'startbtn' button, allowing the player to start
+            // a new game after the current one has ended.
             startbtn.disabled = false;
         }
     }, 1000);
 }
 
+// To listen, click event startbtn adds an event listener to the 'startbtn' element,
+// triggering the 'startGame' function when the button is clicked. Include the 
+// given code at the end of javaScript file
 startbtn.addEventListener('click', startGame);
 
 

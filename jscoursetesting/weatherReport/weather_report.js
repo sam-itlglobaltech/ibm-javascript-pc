@@ -30,5 +30,6 @@ document.getElementById('weatherForm').addEventListener('submit',showweatherDeta
 // for city, apiKey and apiUrl as follows:
 const city = document.getElementById('city').value;
 const apiKey = '5593aa84a72f3eedf2cbee4c8075ab89'; // Replace 'YOUR_API_KEY' with your actual API key
-const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+// const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`;
 
